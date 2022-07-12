@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<title>Document</title>
+</head>
+<style>
+    .body {
+        height: 100vh;
+    }
+
+    .header {
+        width: 90%;
+        margin: 15px auto;
+        border-bottom: 1px solid gray;
+
+    }
+</style>
+
+<body>
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="main.js"></script>
+    <div x-data="{
+        ID:3,
+        checkedClass:false,
+        inputText:'',
+        toDoObject: [
+            {id:1, title: 'Get up',completed:false},
+            {id:2, title: 'Work out',completed:false},
+            {id:3, title: 'Hang out',completed:false},
+        ],
+        deleteAll() {
+            this.toDoObject = []
+        }
+        
+
+    }">
+        <h1 class="text-center pt-6 font-bold">Alpine js and Tailwind Css To do</h1>
+        <div class="header pb-6 border-b border-sky-500">
+            <div class="w-full">
+                <input type="text" class="w-full py-2 border border-sky-500" x-model="inputText">
+                <div class="mt-6 flex justify-between">
+                    <button class="bg-cyan-500 rounded p-2" @click="addTask(inputText,toDoObject,++ID)">Add
+                        task!</button>
+                    <button class="bg-cyan-500 rounded p-2" @click="deleteAll()">Clear All</button>
+                </div>
+            </div>
+        </div>
+        <template x-for="item in toDoObject" :key="item.id" class="flex items-center">
+            <div class="toDoItem p-4 flex items-center justify-between">
+                <input type="checkbox" @change="changeText(toDoObject,item.id)">
+                <span x-text="item.title"></span>
+                <button class="bg-cyan-500 rounded p-2" @click="deleteItem(toDoObject,item.id)"
+                    style="padding: 5px;">Delete task</button>
+            </div>
+        </template>
+    </div>
+
+</body>
+
+</html>
